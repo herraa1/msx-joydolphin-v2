@@ -2841,7 +2841,7 @@
   )
 
   (symbol (lib_id "Device:R") (at 153.67 182.88 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (in_bom no) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid bf9610bc-6b3c-44c3-9aef-7d69e2a23803)
     (property "Reference" "R3" (at 156.21 181.61 0)
       (effects (font (size 1.27 1.27)) (justify left))

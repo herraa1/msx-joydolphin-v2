@@ -4,12 +4,6 @@
 
 Connect [Nintendo Gamecube controllers](https://en.wikipedia.org/wiki/GameCube_controller) to [MSX computers](https://www.msx.org/wiki/).
 
-> [!WARNING]
-> This is a work in progress project.
->
-> No PCBs have been tested yet!
->
-
 ## Introduction
 
 The msx-joydolphin v2 is an adapter that allows connecting Nintendo Gamecube controllers to [MSX general purpose I/O ports](https://www.msx.org/wiki/General_Purpose_port).
@@ -44,7 +38,7 @@ The _"dolphin"_ part comes from the project codename assigned to the Nintendo Ga
 The msx-joydolphin v2 adapter uses an [Arduino Nano](https://store.arduino.cc/products/arduino-nano) to convert the [Nintendo Gamecube controller signalling](http://www.int03.co.uk/crema/hardware/gamecube/gc-control.html) to the [MSX joystick standard signalling](https://www.msx.org/wiki/Joystick_control).
 
 A small printed circuit board (PCB) is used to easily bind all components:
-* The Arduino Nano is connected using female headers
+* The Arduino Nano is connected using female headers (or soldered directly, when using the proposed the plastic case)
 * PH2.0 connectors are used to connect cable extensions
 * A 2.54 pitch debug header is added for convenience
 * Through-hole components are used on the front side
@@ -114,6 +108,33 @@ If a WaveBird Wireless Controller is connected then the msx-joydolphin adapter n
 Althought it won't work, it is safe to connect a WaveBird Wireless Controller dongle without connecting an external USB power supply thanks to the current limitation of the PTC.
 Also, connection of an external USB power supply to the Arduino Nano won't back-power the MSX computer thanks to the Schottky diode reverse current protection.
 
+### Recommended Build
+
+Please, use [msx-joydolphin-v2 Build1b](#build1b) for making new boards if you want something field-tested.
+
+### Build1b
+
+[Bill Of Materials (BoM)](https://html-preview.github.io/?url=https://raw.githubusercontent.com/herraa1/msx-joydolphin-v2/main/hardware/kicad/msx-joydolphin-v2-Build1b/bom/ibom.html)
+
+The Build1b adapter mimics completely the standard MSX joystick behaviour:
+
+* When pin8 is HIGH, the adapter puts all stick and triggers signals in high impedance mode irrespective of their status (as if stick and triggers were not hold in the standard MSX joystick schematic), which become HIGH on the MSX side via the MSX PSG related circuitry pull-ups (matching the expected behavior)
+* When pin8 is LOW
+  * if a stick direction or trigger is hold, the corresponding signal is pulled down to GND causing it to be LOW (matching the expected behavior)
+  * if a stick direction or trigger is not hold, the corresponding signal is put in high impedance mode, which becomes HIGH on the MSX side via the MSX PSG related circuitry pull-ups (matching the expected behaviour)
+
+This build uses discrete logic components to honor the pin8 signaling (two [74LS03DR quad 2-input positive-nand gates with open collector outputs](https://www.ti.com/lit/ds/symlink/sn74ls03.pdf)) and uses open collector outputs which makes the adapter safer [^3] than the standard MSX joystick schematic depicted in the MSX Technical Data Book, as it avoids a series of undesired conditions that can lead to bus contention/short circuits.
+
+|[<img src="images/msx-joydolphin-v2-Build1b-board-unpopulated-front-and-back-IMG_5961.png" width="512"/>](images/msx-joydolphin-v2-Build1b-board-unpopulated-front-and-back-IMG_5961.png)|
+|:--|
+|msx-joydolphin-v2 Build1b first prototype unpopulated|
+
+|[<img src="images/msx-joydolphin-v2-Build1b-board-populated-front-IMG_5951.png" width="256"/>](images/msx-joydolphin-v2-Build1b-board-populated-front-IMG_5951.png)|[<img src="images/msx-joydolphin-v2-Build1b-board-populated-back-IMG_5952.png" width="256"/>](images/msx-joydolphin-v2-Build1b-board-populated-back-IMG_5952.png)|
+|-|-|
+|msx-joydolphin-v2 Build1b front populated|msx-joydolphin-v2 Build1b rear populated|
+
+> [!NOTE]
+> Do NOT populate resistor R3 as it is not needed.
 
 ## [Firmware](firmware/msx-joydolphin-v2/)
 
@@ -126,9 +147,6 @@ The following elements are used as inputs:
 * B button, as Trigger 2
 
 Those elements' status are processed by the msx-joydolphin firmware and transformed into MSX general purpose I/O port's signals on the fly.
-
-The firmware uses Arduino Nano's sleep capabilities to reduce power consumption when a wired controller is used.
-
 
 ## [Enclosure](enclosure/)
 
@@ -151,16 +169,23 @@ The enclosure allows access to the USB port of the Arduino Nano without having t
 
 ### Plastic
 
-Another enclosure option is using an off-the-shelf plastic case of 60x36x17mm.
+Another enclosure option is using an off-the-shelf [plastic case of 60x36x17mm](https://es.aliexpress.com/item/1005002139025547.html).
 
 When using this option, the Arduino Nano must be soldered directly to the msx-joydolphin v2 board and its pin header legs must be trimmed down in order to fit within the reduced space of the case.
 
-> [!NOTE]
-> Photos here display the old msx-joydolphin-v1 adapter into the plastic enclosure.
+Also, you may need to trim a bit the pcb board corners with a file to slide the board into the case.
 
-[<img src="images/msx-joydolphin-v2-plastic-case-closed.png" width="400"/>](images/msx-joydolphin-v2-plastic-case-closed.png)
-[<img src="images/msx-joydolphin-v2-plastic-case-open.png" width="400"/>](images/msx-joydolphin-v2-plastic-case-open.png)
+[<img src="images/msx-joydolphin-v2-Build1b-board-inside-plastic-case-cables-before-closing-IMG_5956.png" width="400"/>](images/msx-joydolphin-v2-Build1b-board-inside-plastic-case-cables-before-closing-IMG_5956.png)
+[<img src="images/msx-joydolphin-v2-Build1b-plastic-case-with-sticker-IMG_5960.png" width="400"/>](images/msx-joydolphin-v2-Build1b-plastic-case-with-sticker-IMG_5960.png)
 
+You can enlarge the existing hole on one of the case sides to access the mini USB connector, and make a new hole on the very left of the same side for the MSX joystick cable.
+
+This way you can easily power the adapter via USB when you connect a Wavebird wireless controller.
+
+You can use a plastic cover (a HDMI cover in this case) to protect the mini USB hole when not in use, as seen on the pictures.
+
+[<img src="images/msx-joydolphin-v2-Build1b-plastic-case-mini-usb-hole-open-IMG_5958.png" width="400"/>](images/msx-joydolphin-v2-Build1b-plastic-case-mini-usb-hole-open-IMG_5958.png)
+[<img src="images/msx-joydolphin-v2-Build1b-plastic-case-mini-usb-hole-closed-IMG_5959.png" width="400"/>](images/msx-joydolphin-v2-Build1b-plastic-case-mini-usb-hole-closed-IMG_5959.png)
 
 ## References
 
