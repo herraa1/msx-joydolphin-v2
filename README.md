@@ -157,7 +157,7 @@ A simple acrylic enclosure design for the project is provided to protect the ele
 The enclosure uses a 3mm acrylic sheet.
 
 > [!NOTE]
-> Photos here display the old msx-joydolphin-v1 adapter into the plastic enclosure.
+> Photos here display the old msx-joydolphin-v1 adapter into the acrylic enclosure.
 
 [<img src="images/msx-joydolphin-v2-acrylic-case-closed-0.png" width="400"/>](images/msx-joydolphin-v2-acrylic-case-closed-0.png)
 [<img src="images/msx-joydolphin-v2-acrylic-case-open-0.png" width="400"/>](images/msx-joydolphin-v2-acrylic-case-open-0.png)
