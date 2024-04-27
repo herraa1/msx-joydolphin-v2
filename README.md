@@ -152,12 +152,9 @@ Those elements' status are processed by the msx-joydolphin firmware and transfor
 
 ### Acrylic
 
-A simple acrylic enclosure design for the project is provided to protect the electronics components and provide strain relief for the extension cords.
+A simple acrylic enclosure design for the project is provided to protect the electronic components and provide strain relief for the extension cords.
 
 The enclosure uses a 3mm acrylic sheet.
-
-> [!NOTE]
-> Photos here display the old msx-joydolphin-v1 adapter into the acrylic enclosure.
 
 [<img src="images/msx-joydolphin-v2-acrylic-case-closed-0.png" width="400"/>](images/msx-joydolphin-v2-acrylic-case-closed-0.png)
 [<img src="images/msx-joydolphin-v2-acrylic-case-open-0.png" width="400"/>](images/msx-joydolphin-v2-acrylic-case-open-0.png)
@@ -166,6 +163,9 @@ The enclosure uses a 3mm acrylic sheet.
 The enclosure allows access to the USB port of the Arduino Nano without having to open it.
 
 [<img src="images/msx-joydolphin-v2-acrylic-case-closed-usb-side.png" height="300"/>](images/msx-joydolphin-v2-acrylic-case-closed-usb-side.png)
+
+> [!NOTE]
+> The height of the acrylic enclosure for msx-joydolphin-v2 has been reduced, so the Arduino Nano must be soldered in the same way as when using the plastic enclosure.
 
 ### Plastic
 
