@@ -112,7 +112,7 @@ Also, connection of an external USB power supply to the Arduino Nano won't back-
 
 Please, use [msx-joydolphin-v2 Build1b](#build1b) for making new boards if you want something field-tested.
 
-### Build1b
+### [Build1b](hardware/kicad/msx-joydolphin-v2-Build1b)
 
 [Bill Of Materials (BoM)](https://html-preview.github.io/?url=https://raw.githubusercontent.com/herraa1/msx-joydolphin-v2/main/hardware/kicad/msx-joydolphin-v2-Build1b/bom/ibom.html)
 
